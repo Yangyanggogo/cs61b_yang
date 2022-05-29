@@ -42,7 +42,7 @@ public class LeapYear {
                 System.out.printf("%s is not a valid number.\n", args[i]);
             }
         }
-		checkLeapYear(4000);
+		checkLeapYear(4000)
     }
 }
 
