@@ -4,9 +4,11 @@
  */
 public class DebugExercise1 {
     public static int divideThenRound(int top, int bottom) {
-        int quotient = top / bottom;
-        int result = Math.round(quotient);
-        return result;
+        float x = top;
+        double quotient = x / bottom;
+
+
+        return (int) Math.round(quotient);
     }
 
     public static void main(String[] args) {
@@ -19,10 +21,11 @@ public class DebugExercise1 {
         int b2 = 4;
         int result2 = divideThenRound(t2, b2);
         System.out.println("round(" + t2 + "/" + b2 + ")=" + result2);
-
         int t3 = 3;
         int b3 = 4;
         int result3 = divideThenRound(t3, b3);
         System.out.println("round(" + t3 + "/" + b3 + ")=" + result3);
+        double a = 0.75 ;
+        System.out.println(Math.round(a));
     }
 }
