@@ -8,15 +8,15 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
-        nextFirst = 7;
-        nextLast = 0;
+        nextFirst = 0;
+        nextLast = 1;
     }
 
     private int minusOne(int i) {
         if (i <= 1) {
-            return items.length -1;
+            return items.length - 1;
         }
-        return i -1;
+        return i - 1;
     }
     private int plusOne(int i) {
         if (i >= items.length - 1) {
@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
         }
         return i + 1;
     }
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int temp = items.length - nextFirst;
         System.arraycopy(items, nextFirst, a, 0, temp);
@@ -37,7 +37,7 @@ public class ArrayDeque<T> {
 
 
     }
-    public void addFirst(T item){
+    public void addFirst(T item) {
         if (size == items.length) {
             resize(2 * size);
         }
@@ -76,8 +76,8 @@ public class ArrayDeque<T> {
         size -= 1;
         nextFirst = plusOne(nextFirst);
         T res = items[nextFirst];
-        if (items.length > 8 && (float)size/ items.length < 0.25) {
-            resize(items.length/2);
+        if (items.length > 8 && (float) size / items.length < 0.25) {
+            resize(items.length / 2);
         }
         return res;
     }
@@ -89,8 +89,8 @@ public class ArrayDeque<T> {
         size -= 1;
         nextFirst = minusOne(nextFirst);
         T res = items[nextLast];
-        if (items.length > 8 && (float)size/ items.length < 0.25) {
-            resize(items.length/2);
+        if (items.length > 8 && (float) size / items.length < 0.25) {
+            resize(items.length / 2);
         }
         return res;
     }

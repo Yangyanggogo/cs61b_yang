@@ -1,9 +1,10 @@
 public class LinkedListDeque<T> {
-    private class StuffNode{
-        public T item;
-        public StuffNode prev;
-        public StuffNode next;
-        public StuffNode(T i, StuffNode p, StuffNode n){
+    private class StuffNode {
+        private T item;
+        private StuffNode prev;
+        private StuffNode next;
+
+        StuffNode(T i, StuffNode p, StuffNode n) {
             item = i;
             prev = p;
             next = n;
@@ -14,14 +15,14 @@ public class LinkedListDeque<T> {
     private StuffNode sentinel;
     private int size;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         sentinel = new StuffNode(null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
     }
 
-    public void addFirst(T item){
+    public void addFirst(T item) {
         size += 1;
         sentinel.next = new StuffNode(item, sentinel, sentinel.next);
         sentinel.prev = sentinel.next;
@@ -51,7 +52,7 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (size ==0) {
+        if (size == 0) {
             return null;
         }
         size -= 1;
@@ -62,18 +63,18 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (size ==0) {
+        if (size == 0) {
             return null;
         }
         size -= 1;
         T res = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
-        sentinel.prev.next =sentinel;
+        sentinel.prev.next = sentinel;
         return res;
     }
 
     public T get(int index) {
-        if (index < 0 || index > size -1) {
+        if (index < 0 || index > size - 1) {
             return null;
         }
         StuffNode p = sentinel.next;
@@ -85,16 +86,16 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        if (index < 0 || index > size -1) {
+        if (index < 0 || index > size - 1) {
             return null;
         }
-        return getRecursive_helper(sentinel.next, index);
+        return getRecursiveHelper(sentinel.next, index);
     }
 
-    private T getRecursive_helper(StuffNode p, int index) {
+    private T getRecursiveHelper(StuffNode p, int index) {
         if (index == 0) {
             return p.item;
         }
-        return getRecursive_helper(p.next, index-1);
+        return getRecursiveHelper(p.next, index - 1);
     }
 }
