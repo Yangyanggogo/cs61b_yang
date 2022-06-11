@@ -24,8 +24,7 @@ public class Palindrome {
         Deque deq = wordToDeque(word);
         if (deq.removeFirst() == deq.removeLast()) {
             return isPalindrome(helper(deq));
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -36,10 +35,9 @@ public class Palindrome {
             return true;
         }
         Deque<Character> deq = wordToDeque(word);
-        if (cc.equalChars(deq.removeFirst(),deq.removeLast())) {
+        if (cc.equalChars(deq.removeFirst(), deq.removeLast())) {
             return isPalindrome(helper(deq), cc);
-        }
-        else {
+        } else {
             return false;
         }
     }
