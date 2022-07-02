@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import lab9.BSTMap;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * Tests by Brendan Hu, Spring 2015, revised for 2018 by Josh Hug
  */
@@ -89,4 +93,28 @@ public class TestBSTMap {
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestBSTMap.class);
     }
+
+    //assume keyset work
+    @Test
+    public void testKeyset() {
+        BSTMap<String, Integer> a = new BSTMap<String, Integer>();
+        a.put("d", 4);
+        a.put("b", 2);
+        a.put("f", 6);
+        a.put("a", 1);
+        a.put("c", 3);
+        Set expected = new HashSet<>();
+        expected.add("d");
+        expected.add("b");
+        expected.add("f");
+        expected.add("a");
+        expected.add("c");
+        assertEquals(expected, a.keySet());
+        System.out.println(a.keySet());
+        Iterator<String>ex = a.iterator();
+        while (ex.hasNext()) {
+            System.out.println(ex.next());
+        }
+    }
+
 }

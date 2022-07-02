@@ -1,5 +1,6 @@
 package lab9;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  *  A hash table-backed Map implementation. Provides amortized constant time
  *  access to elements via get(), remove(), and put() in the best case.
  *
- *  @author Your name here
+ *  @author Yang Chen
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
@@ -17,12 +18,19 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     private ArrayMap<K, V>[] buckets;
     private int size;
 
+
     private int loadFactor() {
         return size / buckets.length;
     }
 
     public MyHashMap() {
         buckets = new ArrayMap[DEFAULT_SIZE];
+        this.clear();
+
+    }
+
+    private MyHashMap(int capacity) {
+        buckets = new ArrayMap[capacity];
         this.clear();
     }
 
@@ -43,7 +51,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (key == null) {
             return 0;
         }
-
         int numBuckets = buckets.length;
         return Math.floorMod(key.hashCode(), numBuckets);
     }
@@ -53,19 +60,44 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("the key is null!");
+        }
+        int index = hash(key);
+        return buckets[index].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException("the key is null!");
+        }
+        if (loadFactor() > MAX_LF) {
+            resize(buckets.length * 2);
+        }
+        int index = hash(key);
+        if (!buckets[index].containsKey(key)) {
+            size += 1;
+        }
+        buckets[index].put(key, value);
+    }
+
+    private void resize(int capacity) {
+        MyHashMap<K, V> mhm = new MyHashMap<>(capacity);
+        for (int i = 0; i < buckets.length; i++) {
+            for (K key : buckets[i].keySet()) {
+                mhm.put(key, buckets[i].get(key));
+            }
+        }
+        this.size = size;
+        this.buckets = mhm.buckets;
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
